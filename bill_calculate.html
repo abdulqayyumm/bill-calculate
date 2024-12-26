@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bill Calculate</title>
+        <style>
+            body{
+                font-family: arial, sans-serif;
+            }
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="form">
+            <label for="lname">Wapda Bill:</label><br>
+            <input type="number" id="wapda_bill" name="wapda_bill"><br>
+            <label for="fname">Wapda Total Units:</label><br>
+            <input type="number" id="wapda_units" name="wapda_units"><br><br><br><br>
+            
+            
+            <label for="lname">Best Unifrom Current Units:</label><br>
+            <input type="number" id="bu_current_units" name="bu_current_units"><br>
+            <label for="lname">Best Unifrom Old Units:</label><br>
+            <input type="number" id="bu_old_units" name="bu_old_units"><br><br>
+
+            
+            <label for="lname">Book Shop Current Units:</label><br>
+            <input type="number" id="bs_current_units" name="bs_current_units"><br>
+            <label for="lname">Book Shop Old Units:</label><br>
+            <input type="number" id="bs_old_units" name="bs_old_units"><br><br>
+
+            <label for="lname">Babar Current Units:</label><br>
+            <input type="number" id="babar_current_units" name="babar_current_units"><br>
+            <label for="lname">Babar Old Units:</label><br>
+            <input type="number" id="babar_old_units" name="babar_old_units"><br>
+            
+            <br><br>
+            <input type="submit" value="Submit">
+
+            <hr>
+        </form>
+
+        <h4>Unit Rate:  <span id="dp_unit_rate"></span></h4>
+
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Current Reading</th>
+                <th>Old Reading</th>
+                <th>Consumed Units</th>
+                <th>Differecne %</th>
+                <th>Differecne Units</th>
+                <th>Total Units</th>
+                <th>Total Amount</th>
+            </tr>
+            <tr>
+                <td><b>Best Unifrom</b></td>
+                <td id="bu_dp_current_reading"></td>
+                <td id="bu_dp_old_reading"></td>
+                <td id="bu_dp_consumed_units"></td>
+                <td id="bu_dp_difference"></td>
+                <td id="bu_dp_difference_units"></td>
+                <td id="bu_dp_total_units"></td>
+                <td id="bu_dp_total_amount"></td>
+            </tr>
+            <tr>
+                <td><b>Book Shop</b></td>
+                <td id="bs_dp_current_reading"></td>
+                <td id="bs_dp_old_reading"></td>
+                <td id="bs_dp_consumed_units"></td>
+                <td id="bs_dp_difference"></td>
+                <td id="bs_dp_difference_units"></td>
+                <td id="bs_dp_total_units"></td>
+                <td id="bs_dp_total_amount"></td>
+            </tr>
+            <tr>
+                <td><b>Babar</b></td>
+                <td id="babar_dp_current_reading"></td>
+                <td id="babar_dp_old_reading"></td>
+                <td id="babar_dp_consumed_units"></td>
+                <td id="babar_dp_difference"></td>
+                <td id="babar_dp_difference_units"></td>
+                <td id="babar_dp_total_units"></td>
+                <td id="babar_dp_total_amount"></td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td><b class="dp_total_consumed_units"></b></td>
+                <td>-</td>
+                <td>-</td>
+                <td><b id="total_units"></b></td>
+                <td><b id="total_amount"></b></td>
+            </tr>
+        </table>
+
+        <h4>Total Consumed Units: <span class="dp_total_consumed_units"></span></h4>
+        <h4>Total Difference Units: <span id="dp_total_difference_units"></span></h4>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script>
+            $("#form").submit(function(e){
+                e.preventDefault();
+
+                
+                let wapda_units = $('#wapda_units').val();
+                let wapda_bill = $('#wapda_bill').val();
+                
+                let bu_old_units = $('#bu_old_units').val();
+                let bu_current_units = $('#bu_current_units').val();
+                let bs_old_units = $('#bs_old_units').val();
+                let bs_current_units = $('#bs_current_units').val();
+                let babar_old_units = $('#babar_old_units').val();
+                let babar_current_units = $('#babar_current_units').val();
+
+                if (wapda_units && wapda_bill && bu_old_units && bu_current_units && bs_old_units && bs_current_units && babar_old_units && babar_current_units){
+
+                    let unit_rate = (wapda_bill / wapda_units).toFixed(2);
+                    let bu_consumed_units = bu_current_units - bu_old_units;
+                    let bs_consumed_units = bs_current_units - bs_old_units;
+                    let babar_consumed_units = babar_current_units - babar_old_units;
+                    let total_consumed_units = bu_consumed_units + bs_consumed_units + babar_consumed_units;
+                    let total_difference_units = wapda_units - total_consumed_units;
+
+                    $('#dp_unit_rate').text(unit_rate);
+                    $('.dp_total_consumed_units').html(total_consumed_units);
+                    $('#dp_total_difference_units').text(total_difference_units);
+
+                    $('#bu_dp_current_reading').text(bu_current_units);
+                    $('#bu_dp_old_reading').text(bu_old_units);
+                    $('#bu_dp_consumed_units').text(bu_consumed_units);
+                    
+                    $('#bs_dp_current_reading').text(bs_current_units);
+                    $('#bs_dp_old_reading').text(bs_old_units);
+                    $('#bs_dp_consumed_units').text(bs_consumed_units);
+                    
+                    $('#babar_dp_current_reading').text(babar_current_units);
+                    $('#babar_dp_old_reading').text(babar_old_units);
+                    $('#babar_dp_consumed_units').text(babar_consumed_units);
+
+                    let buPercentage = Math.round((bu_consumed_units * 100) / total_consumed_units);
+                    let bsPercentage = Math.round((bs_consumed_units * 100) / total_consumed_units);
+                    let babarPercentage = Math.round((babar_consumed_units * 100) / total_consumed_units);
+
+                    $('#bu_dp_difference').text(`${buPercentage} %`);
+                    $('#bs_dp_difference').text(`${bsPercentage} %`);
+                    $('#babar_dp_difference').text(`${babarPercentage} %`);
+                    
+                    let buUnitPercentage =  Math.round((total_difference_units * buPercentage) / 100);
+                    let bsUnitPercentage =  Math.round((total_difference_units * bsPercentage) / 100);
+                    let babarUnitPercentage =  Math.round((total_difference_units * babarPercentage) / 100);
+                    
+                    $('#bu_dp_difference_units').text(buUnitPercentage);
+                    $('#bs_dp_difference_units').text(bsUnitPercentage);
+                    $('#babar_dp_difference_units').text(babarUnitPercentage);
+
+                    let buTotalUnits = (bu_consumed_units + buUnitPercentage);
+                    let bsTotalUnits = (bs_consumed_units + bsUnitPercentage);
+                    let babarTotalUnits = (babar_consumed_units + babarUnitPercentage);
+
+                    $('#bu_dp_total_units').text(buTotalUnits);
+                    $('#bs_dp_total_units').text(bsTotalUnits);
+                    $('#babar_dp_total_units').text(babarTotalUnits);
+
+                    let buTotalAmount = Math.round(buTotalUnits * unit_rate);
+                    let bsTotalAmount = Math.round(bsTotalUnits * unit_rate);
+                    let babarTotalAmount = Math.round(babarTotalUnits * unit_rate);
+
+                    $('#bu_dp_total_amount').text(buTotalAmount);
+                    $('#bs_dp_total_amount').text(bsTotalAmount);
+                    $('#babar_dp_total_amount').text(babarTotalAmount);
+                    
+                    $('#total_units').text(buTotalUnits + bsTotalUnits + babarTotalUnits);
+                    $('#total_amount').text(buTotalAmount + bsTotalAmount + babarTotalAmount);
+                }
+            });
+    </script>
+</html>
+
+
