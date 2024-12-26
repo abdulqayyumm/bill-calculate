@@ -49,74 +49,75 @@
             
             <br><br>
             <input type="submit" value="Submit">
-
-            <hr>
         </form>
 
-        <h4>Unit Rate:  <span id="dp_unit_rate"></span></h4>
+        <div class="content" style="display: none;">
+            <hr>
 
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Current Reading</th>
-                <th>Old Reading</th>
-                <th>Consumed Units</th>
-                <th>Differecne %</th>
-                <th>Differecne Units</th>
-                <th>Total Units</th>
-                <th>Total Amount</th>
-            </tr>
-            <tr>
-                <td><b>Best Unifrom</b></td>
-                <td id="bu_dp_current_reading"></td>
-                <td id="bu_dp_old_reading"></td>
-                <td id="bu_dp_consumed_units"></td>
-                <td id="bu_dp_difference"></td>
-                <td id="bu_dp_difference_units"></td>
-                <td id="bu_dp_total_units"></td>
-                <td id="bu_dp_total_amount"></td>
-            </tr>
-            <tr>
-                <td><b>Book Shop</b></td>
-                <td id="bs_dp_current_reading"></td>
-                <td id="bs_dp_old_reading"></td>
-                <td id="bs_dp_consumed_units"></td>
-                <td id="bs_dp_difference"></td>
-                <td id="bs_dp_difference_units"></td>
-                <td id="bs_dp_total_units"></td>
-                <td id="bs_dp_total_amount"></td>
-            </tr>
-            <tr>
-                <td><b>Babar</b></td>
-                <td id="babar_dp_current_reading"></td>
-                <td id="babar_dp_old_reading"></td>
-                <td id="babar_dp_consumed_units"></td>
-                <td id="babar_dp_difference"></td>
-                <td id="babar_dp_difference_units"></td>
-                <td id="babar_dp_total_units"></td>
-                <td id="babar_dp_total_amount"></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td><b class="dp_total_consumed_units"></b></td>
-                <td>-</td>
-                <td>-</td>
-                <td><b id="total_units"></b></td>
-                <td><b id="total_amount"></b></td>
-            </tr>
-        </table>
+            <h4>Unit Rate:  <span id="dp_unit_rate"></span></h4>
 
-        <h4>Total Consumed Units: <span class="dp_total_consumed_units"></span></h4>
-        <h4>Total Difference Units: <span id="dp_total_difference_units"></span></h4>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Current Reading</th>
+                    <th>Old Reading</th>
+                    <th>Consumed Units</th>
+                    <th>Differecne %</th>
+                    <th>Differecne Units</th>
+                    <th>Total Units</th>
+                    <th>Total Amount</th>
+                </tr>
+                <tr>
+                    <td><b>Best Unifrom</b></td>
+                    <td id="bu_dp_current_reading"></td>
+                    <td id="bu_dp_old_reading"></td>
+                    <td id="bu_dp_consumed_units"></td>
+                    <td id="bu_dp_difference"></td>
+                    <td id="bu_dp_difference_units"></td>
+                    <td id="bu_dp_total_units"></td>
+                    <td id="bu_dp_total_amount"></td>
+                </tr>
+                <tr>
+                    <td><b>Book Shop</b></td>
+                    <td id="bs_dp_current_reading"></td>
+                    <td id="bs_dp_old_reading"></td>
+                    <td id="bs_dp_consumed_units"></td>
+                    <td id="bs_dp_difference"></td>
+                    <td id="bs_dp_difference_units"></td>
+                    <td id="bs_dp_total_units"></td>
+                    <td id="bs_dp_total_amount"></td>
+                </tr>
+                <tr>
+                    <td><b>Babar</b></td>
+                    <td id="babar_dp_current_reading"></td>
+                    <td id="babar_dp_old_reading"></td>
+                    <td id="babar_dp_consumed_units"></td>
+                    <td id="babar_dp_difference"></td>
+                    <td id="babar_dp_difference_units"></td>
+                    <td id="babar_dp_total_units"></td>
+                    <td id="babar_dp_total_amount"></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><b class="dp_total_consumed_units"></b></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><b id="total_units"></b></td>
+                    <td><b id="total_amount"></b></td>
+                </tr>
+            </table>
+
+            <h4>Total Consumed Units: <span class="dp_total_consumed_units"></span></h4>
+            <h4>Total Difference Units: <span id="dp_total_difference_units"></span></h4>
+        </div>
     </body>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <script>
             $("#form").submit(function(e){
                 e.preventDefault();
-
                 
                 let wapda_units = $('#wapda_units').val();
                 let wapda_bill = $('#wapda_bill').val();
@@ -187,6 +188,8 @@
                     
                     $('#total_units').text(buTotalUnits + bsTotalUnits + babarTotalUnits);
                     $('#total_amount').text(buTotalAmount + bsTotalAmount + babarTotalAmount);
+
+                    $('.content').css('display', 'block');
                 }
             });
     </script>
